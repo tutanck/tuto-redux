@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import counterSlice, { selectCount } from "./slices/counterSlice";
 
-function App() {
+export const { increment, decrement, changeByValue } = counterSlice.actions;
+
+const App = () => {
+  const count = useSelector(selectCount);
+  const dispatch = useDispatch();
+  const [value, setValue] = useState();
+
+  const handleChange = (e) => {
+    const num = parseInt(e.target.value);
+    setValue(num);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Counter app</h1>
+      <p>Count: {count}</p>
+
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      <button onClick={() => dispatch(changeByValue(value))}>
+        Change by Value
+      </button>
+
+      <input onChange={(e) => handleChange(e)} />
+    </>
   );
-}
+};
 
 export default App;
