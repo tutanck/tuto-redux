@@ -13,7 +13,7 @@ const Slice = createSlice({
       state.value -= 1;
     },
     changeByValue: (state, action) => {
-      state.value += action.payload;
+      state.value = action.payload;
     },
   },
 });
